@@ -13,16 +13,18 @@ var userInput = process.argv[3];
 
 function spotifyThis(input){
     spotify
-        .search({ type: 'track', query: input, limit:1 })
+        .search({ type: 'track', query: input })
         .then(function(response) {
-            // name of song
-            console.log(JSON.stringify(response.tracks.items[0].name, null, 2));
-            // artist name
-            console.log(JSON.stringify(response.tracks.items[0].artists[0].name, null, 2));
-            // A preview link of the song from Spotify
-            console.log(JSON.stringify(response.tracks.items[0].external_urls.spotify, null, 2));
-            // The album that the song is from
-            console.log(JSON.stringify(response.tracks.items[0].album.name, null, 2));
+            for(var i = 0; i < response.tracks.items.length; i++){
+                // name of song
+                console.log("Song Name: "+JSON.stringify(response.tracks.items[i].name, null, 2));
+                // artist name
+                console.log("Artist Name: "+JSON.stringify(response.tracks.items[i].artists[0].name, null, 2));
+                // A preview link of the song from Spotify
+                console.log("Preview Link: "+JSON.stringify(response.tracks.items[i].external_urls.spotify, null, 2));
+                // The album that the song is from
+                console.log("Album: "+JSON.stringify(response.tracks.items[i].album.name, null, 2));
+            }
         })
         .catch(function(err) {
             console.log(err);
@@ -40,7 +42,25 @@ function doWhatItSays(){
 
 switch(whatToDo){
     case "spotify-this-song":
-        spotifyThis(userInput);
+        if(process.argv.length === 3){
+            spotify
+            .search({type: 'track', query: 'The Sign'})
+            .then(function(response) {
+                // name of song
+                console.log("Song Name: "+JSON.stringify(response.tracks.items[5].name, null, 2));
+                // artist name
+                console.log("Artist Name: "+JSON.stringify(response.tracks.items[5].artists[0].name, null, 2));
+                // A preview link of the song from Spotify
+                console.log("Preview Link: "+JSON.stringify(response.tracks.items[5].external_urls.spotify, null, 2));
+                // The album that the song is from
+                console.log("Album: "+JSON.stringify(response.tracks.items[5].album.name, null, 2));
+            })
+            .catch(function(err) {
+              console.log(err);
+            });
+        }else{
+            spotifyThis(userInput);
+        }
         break;
     case "movie-this":
         movieThis();
@@ -52,3 +72,4 @@ switch(whatToDo){
         doWhatItSays();
         break;
 }
+
