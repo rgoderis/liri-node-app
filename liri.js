@@ -39,13 +39,17 @@ function concertThis(input){
     // axios call to bandsintown
     axios.get("https://rest.bandsintown.com/artists/" + input + "/events?app_id=codingbootcamp").then(
     function(response){
-        for(var i = 0; i < response.data.length; i++){
-            // display name of venue
-            console.log(JSON.stringify(response.data[i].venue.name))
-            // venue location
-            console.log(JSON.stringify(response.data[i].venue.city + ", "+ response.data[i].venue.region + ". " + response.data[i].venue.country))
-            // date of event
-            console.log(JSON.stringify(response.data[i].datetime))
+        if(response.data.length === 0){
+            console.log("No results were found, please try a different band")
+        } else {
+            for(var i = 0; i < response.data.length; i++){
+                // display name of venue
+                console.log(JSON.stringify(response.data[i].venue.name))
+                // venue location
+                console.log(JSON.stringify(response.data[i].venue.city + ", "+ response.data[i].venue.region + ". " + response.data[i].venue.country))
+                // date of event
+                console.log(JSON.stringify(response.data[i].datetime))
+            }
         }
     })
     // check for error
