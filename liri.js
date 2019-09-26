@@ -9,7 +9,7 @@ var fs = require("fs");
  
  
 var whatToDo = process.argv[2];
-var userInput = process.argv.slice(3).join(" ");
+var userInput = process.argv.slice(3).join("+");
 
 // function to retrieve information from spotify
 function spotifyThis(input){
@@ -43,11 +43,11 @@ function concertThis(input){
         } else {
             for(var i = 0; i < response.data.length; i++){
                 // display name of venue
-                console.log(JSON.stringify(response.data[i].venue.name))
+                console.log("Venue Name: " + JSON.stringify(response.data[i].venue.name))
                 // venue location
-                console.log(JSON.stringify(response.data[i].venue.city + ", "+ response.data[i].venue.region + ". " + response.data[i].venue.country))
+                console.log("Venue Location: " + JSON.stringify(response.data[i].venue.city + ", "+ response.data[i].venue.region + ". " + response.data[i].venue.country))
                 // date of event
-                console.log(JSON.stringify(response.data[i].datetime))
+                console.log("Date: "+ JSON.stringify(response.data[i].datetime))
             }
         }
     })
@@ -62,23 +62,22 @@ function concertThis(input){
 // function for movie this
 function movieThis(input){
     axios.get("http://www.omdbapi.com/?t=" + input + "&y=&plot=short&apikey=trilogy").then(function(response){
-        console.log(response.data)
         // * Title of the movie.
-        console.log(response.data.Title)
+        console.log("Movie Title: " + response.data.Title)
         // * Year the movie came out.
-        console.log(response.data.Year)
+        console.log("Release Date: " + response.data.Released)
         // * IMDB Rating of the movie.
-        console.log(response.data.Ratings[0].Value)
+        console.log("IMDB Rating: " + response.data.Ratings[0].Value)
         // * Rotten Tomatoes Rating of the movie.
-        console.log(response.data.Ratings[1].Value)
+        console.log("Rotten Tomato Rating: " + response.data.Ratings[1].Value)
         // * Country where the movie was produced.
-        console.log(response.data.Country)
+        console.log("Produced In: " + response.data.Country)
         // * Language of the movie.
-        console.log(response.data.Language)
+        console.log("Language: " + response.data.Language)
         // * Plot of the movie.
-        console.log(response.data.Plot)
+        console.log("Plot: " + response.data.Plot)
         // * Actors in the movie.
-        console.log(response.data.Actors)
+        console.log("Staring: " + response.data.Actors)
     })
     // check for error
     .catch(function(err){
