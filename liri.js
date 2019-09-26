@@ -35,7 +35,6 @@ function spotifyThis(input){
 
 // function to retrieve information from bandsintown
 function concertThis(input){
-    console.log(input)
     // axios call to bandsintown
     axios.get("https://rest.bandsintown.com/artists/" + input + "/events?app_id=codingbootcamp").then(
     function(response){
@@ -60,8 +59,33 @@ function concertThis(input){
     })
 }
 
-function movieThis(){
-
+// function for movie this
+function movieThis(input){
+    axios.get("http://www.omdbapi.com/?t=" + input + "&y=&plot=short&apikey=trilogy").then(function(response){
+        console.log(response.data)
+        // * Title of the movie.
+        console.log(response.data.Title)
+        // * Year the movie came out.
+        console.log(response.data.Year)
+        // * IMDB Rating of the movie.
+        console.log(response.data.Ratings[0].Value)
+        // * Rotten Tomatoes Rating of the movie.
+        console.log(response.data.Ratings[1].Value)
+        // * Country where the movie was produced.
+        console.log(response.data.Country)
+        // * Language of the movie.
+        console.log(response.data.Language)
+        // * Plot of the movie.
+        console.log(response.data.Plot)
+        // * Actors in the movie.
+        console.log(response.data.Actors)
+    })
+    // check for error
+    .catch(function(err){
+        if(err){
+            console.log(err)
+        }
+    })
 }
 function doWhatItSays(){
 
@@ -92,7 +116,7 @@ switch(whatToDo){
         }
         break;
     case "movie-this":
-        movieThis();
+        movieThis(userInput);
         break;
     case "concert-this":
         concertThis(userInput);
