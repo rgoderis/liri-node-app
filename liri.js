@@ -9,7 +9,7 @@ var fs = require("fs");
  
  
 var whatToDo = process.argv[2];
-var userInput = process.argv.slice(2).join(" ");
+var userInput = process.argv.slice(3).join(" ");
 
 // function to retrieve information from spotify
 function spotifyThis(input){
@@ -35,15 +35,18 @@ function spotifyThis(input){
 
 // function to retrieve information from bandsintown
 function concertThis(input){
+    console.log(input)
     // axios call to bandsintown
     axios.get("https://rest.bandsintown.com/artists/" + input + "/events?app_id=codingbootcamp").then(
     function(response){
-        // display name of venue
-        console.log(response.data[0].venue.name)
-        // venue location
-        console.log(response.data[0].venue.city + ", "+ response.data[0].venue.region + ". " + response.data[0].venue.country)
-        // date of event
-        console.log(response.data[0].datetime)
+        for(var i = 0; i < response.data.length; i++){
+            // display name of venue
+            console.log(JSON.stringify(response.data[i].venue.name))
+            // venue location
+            console.log(JSON.stringify(response.data[i].venue.city + ", "+ response.data[i].venue.region + ". " + response.data[i].venue.country))
+            // date of event
+            console.log(JSON.stringify(response.data[i].datetime))
+        }
     })
     // check for error
     .catch(function(err){
