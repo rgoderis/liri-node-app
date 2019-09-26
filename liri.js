@@ -91,7 +91,14 @@ function movieThis(input){
     })
 }
 function doWhatItSays(){
-
+    fs.readFile("random.txt", "utf8", function(err, data){
+        if(err){
+            console.log(err)
+        } else {
+            var dataArr = data.split(",")
+            spotifyThis(dataArr[1])
+        }
+    })
 }
 
 switch(whatToDo){
