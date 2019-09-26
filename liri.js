@@ -9,7 +9,7 @@ var fs = require("fs");
  
  
 var whatToDo = process.argv[2];
-var userInput = process.argv[3];
+var userInput = process.argv.slice(2).join(" ");
 
 // function to retrieve information from spotify
 function spotifyThis(input){
