@@ -38,7 +38,6 @@ function concertThis(input){
     // axios call to bandsintown
     axios.get("https://rest.bandsintown.com/artists/" + input + "/events?app_id=codingbootcamp").then(
     function(response){
-        // console.log(response.data[0].offers)
         // display name of venue
         console.log(response.data[0].venue.name)
         // venue location
@@ -95,26 +94,3 @@ switch(whatToDo){
         doWhatItSays();
         break;
 }
-
-
-// { offers:
-//    [ { type: 'Tickets',
-//        url:
-//         'https://www.bandsintown.com/t/1016572846?app_id=codingbootcamp&came_from=267&utm_medium=api&utm_source=public_api&utm_campaign=ticket',
-//        status: 'available' } ],
-//   venue:
-//    { name: 'North Island Credit Union Ampitheatre',
-//      country: 'United States',
-//      region: 'CA',
-//      city: 'Chula Vista',
-//      latitude: '32.589367',
-//      longitude: '-117.00653' },
-//   datetime: '2019-10-10T19:00:00',
-//   on_sale_datetime: '2019-08-09T10:00:00',
-//   description:
-//    'Rain or shine. Every ticket includes parking in the unpaved lots. Upgrades are available for premier parking in the paved lots and closer to the venue entrance. Parking Gates open at 4PM on day of show.',
-//   lineup: [ 'Bush' ],
-//   id: '1016572846',
-//   artist_id: '680',
-//   url:
-//    'https://www.bandsintown.com/e/1016572846?app_id=codingbootcamp&came_from=267&utm_medium=api&utm_source=public_api&utm_campaign=event' }
