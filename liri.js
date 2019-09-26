@@ -9,7 +9,7 @@ var fs = require("fs");
  
  
 var whatToDo = process.argv[2];
-var userInput = process.argv.slice(3).join("+");
+var userInput = process.argv.slice(3).join(" ");
 
 // function to retrieve information from spotify
 function spotifyThis(input){
@@ -62,22 +62,26 @@ function concertThis(input){
 // function for movie this
 function movieThis(input){
     axios.get("http://www.omdbapi.com/?t=" + input + "&y=&plot=short&apikey=trilogy").then(function(response){
-        // * Title of the movie.
-        console.log("Movie Title: " + response.data.Title)
-        // * Year the movie came out.
-        console.log("Release Date: " + response.data.Released)
-        // * IMDB Rating of the movie.
-        console.log("IMDB Rating: " + response.data.Ratings[0].Value)
-        // * Rotten Tomatoes Rating of the movie.
-        console.log("Rotten Tomato Rating: " + response.data.Ratings[1].Value)
-        // * Country where the movie was produced.
-        console.log("Produced In: " + response.data.Country)
-        // * Language of the movie.
-        console.log("Language: " + response.data.Language)
-        // * Plot of the movie.
-        console.log("Plot: " + response.data.Plot)
-        // * Actors in the movie.
-        console.log("Staring: " + response.data.Actors)
+        if(response.data.Response === "False"){
+            console.log(response.data.Error)
+        } else {
+            // * Title of the movie.
+            console.log("Movie Title: " + response.data.Title)
+            // * Year the movie came out.
+            console.log("Release Date: " + response.data.Released)
+            // * IMDB Rating of the movie.
+            console.log("IMDB Rating: " + response.data.Ratings[0].Value)
+            // * Rotten Tomatoes Rating of the movie.
+            console.log("Rotten Tomato Rating: " + response.data.Ratings[1].Value)
+            // * Country where the movie was produced.
+            console.log("Produced In: " + response.data.Country)
+            // * Language of the movie.
+            console.log("Language: " + response.data.Language)
+            // * Plot of the movie.
+            console.log("Plot: " + response.data.Plot)
+            // * Actors in the movie.
+            console.log("Staring: " + response.data.Actors)
+        }
     })
     // check for error
     .catch(function(err){
@@ -115,7 +119,11 @@ switch(whatToDo){
         }
         break;
     case "movie-this":
-        movieThis(userInput);
+        if(process.argv.length === 3){
+            movieThis("Mr. Nobody")
+        } else {
+            movieThis(userInput);
+        }
         break;
     case "concert-this":
         concertThis(userInput);
