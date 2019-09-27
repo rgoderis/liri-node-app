@@ -47,7 +47,8 @@ function concertThis(input){
                 // venue location
                 console.log("Venue Location: " + JSON.stringify(response.data[i].venue.city + ", "+ response.data[i].venue.region + ". " + response.data[i].venue.country))
                 // date of event
-                console.log("Date: "+ JSON.stringify(response.data[i].datetime))
+                let momentDate = moment(response.data[i].datetime).format('LLL')
+                console.log("Date: "+ momentDate)
             }
         }
     })
