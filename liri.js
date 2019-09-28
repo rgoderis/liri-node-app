@@ -13,11 +13,6 @@ var userInput = process.argv.slice(3).join(" ");
 
 // function to retrieve information from spotify
 function spotifyThis(input){
-    fs.appendFile("log.txt", input + ": ", function(err){
-        if(err){
-            console.log(err)
-        }
-    })
     spotify
         .search({ type: 'track', query: input })
         .then(function(response) {
@@ -31,7 +26,7 @@ function spotifyThis(input){
                 console.log("Preview Link: "+JSON.stringify(response.tracks.items[i].external_urls.spotify, null, 2));
                 // The album that the song is from
                 console.log("Album: "+JSON.stringify(response.tracks.items[i].album.name, null, 2));
-                fs.appendFile("log.txt", "Song Name: "+ response.tracks.items[i].name + " Artist Name: "+response.tracks.items[i].artists[0].name+" Preview Link: "+response.tracks.items[i].external_urls.spotify+ " Album: "+response.tracks.items[i].album.name + "\n", function(err){
+                fs.appendFile("log.txt", input + ": "+ "Song Name: "+ response.tracks.items[i].name + " Artist Name: "+response.tracks.items[i].artists[0].name+" Preview Link: "+response.tracks.items[i].external_urls.spotify+ " Album: "+response.tracks.items[i].album.name + "\n", function(err){
                     if(err){
                         console.log(err)
                     }
@@ -60,7 +55,7 @@ function concertThis(input){
                 // date of event
                 let momentDate = moment(response.data[i].datetime).format('LLL')
                 console.log("Date: "+ momentDate)
-                fs.appendFile("log.txt", "Venue Name: " + response.data[i].venue.name + " Venue Location: " + response.data[i].venue.city + ", "+ response.data[i].venue.region + ". " + response.data[i].venue.country + " Date: "+ momentDate + "\n", function(err){
+                fs.appendFile("log.txt",input + ": "+  "Venue Name: " + response.data[i].venue.name + " Venue Location: " + response.data[i].venue.city + ", "+ response.data[i].venue.region + ". " + response.data[i].venue.country + " Date: "+ momentDate + "\n", function(err){
                     if(err){
                         console.log(err)
                     }
@@ -78,11 +73,6 @@ function concertThis(input){
 
 // function for movie this
 function movieThis(input){
-    fs.appendFile("log.txt", input + ": ", function(err){
-        if(err){
-            console.log(err)
-        }
-    })
     axios.get("http://www.omdbapi.com/?t=" + input + "&y=&plot=short&apikey=trilogy").then(function(response){
         if(response.data.Response === "False"){
             console.log(response.data.Error)
@@ -108,7 +98,7 @@ function movieThis(input){
             console.log("Plot: " + response.data.Plot)
             // * Actors in the movie.
             console.log("Staring: " + response.data.Actors)
-            fs.appendFile("log.txt","Movie Title: " +  response.data.Title + " Release Date: " + response.data.Released + " IMDB Rating: " + response.data.Ratings[0].Value +" Rotten Tomato Rating: " +  response.data.Ratings[1].Value +" Produced In: " +  response.data.Country +" Language: " +  response.data.Language + " Plot: " + response.data.Plot + " Staring: " + response.data.Actors + "\n", function(err){
+            fs.appendFile("log.txt",input + ": "+ "Movie Title: " +  response.data.Title + " Release Date: " + response.data.Released + " IMDB Rating: " + response.data.Ratings[0].Value +" Rotten Tomato Rating: " +  response.data.Ratings[1].Value +" Produced In: " +  response.data.Country +" Language: " +  response.data.Language + " Plot: " + response.data.Plot + " Staring: " + response.data.Actors + "\n", function(err){
                 if(err){
                     console.log(err)
                 }
@@ -168,12 +158,12 @@ switch(whatToDo){
               console.log(err);
             });
         }else{
-            spotifyThis(userInput);
-            fs.appendFile("log.txt", "spotify-this-song: " + userInput + ": ", function(err){
+            fs.appendFile("log.txt", "spotify-this-song: " + userInput + ": \n", function(err){
                 if(err){
                     console.log(err)
                 }
             })
+            spotifyThis(userInput);
         }
         break;
     case "movie-this":
@@ -194,7 +184,7 @@ switch(whatToDo){
         }
         break;
     case "concert-this":
-        fs.appendFile("log.txt", "concert-this: ", function(err){
+        fs.appendFile("log.txt", "concert-this: \n", function(err){
             if(err){
                 console.log(err)
             }
@@ -202,7 +192,7 @@ switch(whatToDo){
         concertThis(userInput);
         break;
     case "do-what-it-says":
-        fs.appendFile("log.txt", "do-what-it-says: ", function(err){
+        fs.appendFile("log.txt", "do-what-it-says: \n", function(err){
             if(err){
                 console.log(err)
             }
