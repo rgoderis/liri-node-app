@@ -3,7 +3,7 @@ Liri is a Node application that allows the user to search information based on i
 
 Liri searches for song information from spotify, band information from bands in town, and move information from OMDB.  
 
-In addition all results are displayed via logs to the consle and appended to log.txt
+In addition all results are displayed via console.logs and appended to log.txt
 
 ### Command Line Commands
 - spotify-this-song (searches spotify by song title)
